@@ -36,10 +36,10 @@ class Main extends Base implements Listener{
 		if(!(is_dir($this->getDataFolder()."Islands/"))){
 			@mkdir($this->getDataFolder()."Islands/");
 		}
-		$this->getLogger()->info(TextFormat::GREEN . "Done!");
+		$this->getLogger()->info(TextFormat::GREEN . "Listo! Mod por TKRT!");
 	}
 	public function onDisable(){
-		$this->getLogger()->info(TextFormat::RED . "SkyBlock disabled");
+		$this->getLogger()->info(TextFormat::RED . "SkyBlock Deshabilitado");
 	}
 	
 	public function onCommand(CommandSender $sender, Command $command, $label, array $args){
@@ -52,26 +52,26 @@ class Main extends Base implements Listener{
 				if($args[0] == "help"){
 					if($sender->hasPermission("is") || $sender->hasPermission("is.help")){
 						if(!(isset($args[1])) or $args[1] == "1"){
-							$sender->sendMessage(TextFormat::GREEN . "Showing help page 1 of 1");
+							$sender->sendMessage(TextFormat::GREEN . "[Skyblock] Enseñando lista de Ayuda");
 							$sender->sendMessage(TextFormat::GREEN . "/is help");
 							$sender->sendMessage(TextFormat::GREEN . "/is create");
 							$sender->sendMessage(TextFormat::GREEN . "/is home");
 							$sender->sendMessage(TextFormat::GREEN . "/is sethome");
-							$sender->sendMessage(TextFormat::GREEN . "/is find (op only)");
+							$sender->sendMessage(TextFormat::GREEN . "/is find (Solo Op)");
 							return true;
 						}elseif($args[1] == "2"){
-							$sender->sendMessage("More commands coming soon");
+							$sender->sendMessage("Pronto habra mas Comandos");
 							return true;
 						}
 					}else{
-						$sender->sendMessage(TextFormat::RED . "You cannot view the help menu");
+						$sender->sendMessage(TextFormat::RED . "[SkyBlock] No puedes ver el menu de ayuda");
 						return true;
 					}
 				}elseif($args[0] == "create"){
 					if($sender->hasPermission("is") || $sender->hasPermission("is.command") || $sender->hasPermission("is.command.create")){
 						$senderIs = $this->getDataFolder()."Islands/".$sender->getName().".txt";
 						if($sender->getLevel()->getName() == $this->getConfig()->get("Lobby")){
-							$sender->sendMessage(TextFormat::YELLOW."You can't make an island in spawn, silly");
+							$sender->sendMessage(TextFormat::YELLOW."[Skyblock] No Puedes Hacer una isla en Spawn, desgraciado :L");
 							return true;
 							
 						}else{
@@ -79,12 +79,12 @@ class Main extends Base implements Listener{
 								$this->makeIsland($sender->getName());
 								return true;
 							}else{
-								$sender->sendMessage(TextFormat::YELLOW . "You already have an island");
+								$sender->sendMessage(TextFormat::YELLOW . "[Skyblock] Tu ya tienes una isla!");
 								return true;
 							}
 						}
 					}else{
-						$sender->sendMessage(TextFormat::RED . "You cannot create an island");
+						$sender->sendMessage(TextFormat::RED . "[Skyblock] Tu No Puedes Crear una isla!");
 						return true;
 					}
 				}elseif($args[0] == "home"){
@@ -97,20 +97,20 @@ class Main extends Base implements Listener{
 							if($level !== null){
 								$sender->sendMessage(TextFormat::GREEN."Teleporting to your island...");
 								if($sender->getLevel()->getName() !== $level->getName()){
-									$sender->sendMessage("You are not in the same world as your island. Use ".TextFormat::YELLOW."/mw tp ".$level->getName().TextFormat::RESET." and try again");
+									$sender->sendMessage(TextFormat::RED."[Skyblock] Tu no estas en el mismo mundo de tu isla. Usa ".TextFormat::YELLOW."/mw tp ".$level->getName().TextFormat::RESET." E intenta de nuevo");
 									return true;
 								}else{
 									$sender->teleport(new Vector3(yaml_parse_file($this->getDataFolder()."Islands/".$sender->getName().".txt")));
-									$sender->sendMessage(TextFormat::GREEN."Done!");
+									$sender->sendMessage(TextFormat::GREEN."[Skyblock] Listo!");
 									return true;
 								}
 							}else{
-								$sender->sendMessage("An error has occored.");
+								$sender->sendMessage(TextFormat::RED."[Skyblock] Un Error a ocurrido.");
 								return true;
 							}
 						}
 					}else{
-						$sender->sendMessage("You do not have permission to do that");
+						$sender->sendMessage(TextFormat::ORANGE."[Skyblock] No Tienes permisos para hacer eso");
 						return true;
 					}
 				}elseif($args[0] == "find"){
@@ -125,7 +125,7 @@ class Main extends Base implements Listener{
 									$sender->sendMessage(file_get_contents($this->getDataFolder()."Players/".$name.".txt"));
 									return true;
 								}else{
-									$sender->sendMessage($name . " does not have an island");
+									$sender->sendMessage(TextFormat::YELLOW."[Skyblock] "$name . " No Tiene una Isla");
 									return true;
 								}
 							}elseif(file_exists($this->getDataFolder()."Islands/".$args[1].".txt")){
@@ -135,66 +135,66 @@ class Main extends Base implements Listener{
 								return true;
 							}
 						}else{
-							$sender->sendMessage(TextFormat::YELLOW . "You need to specify a player");
+							$sender->sendMessage(TextFormat::YELLOW . "[Skyblock] Necesitas especificar un Jugador");
 							return true;
 						}
 					}else{
-						$sender->sendMessage(TextFormat::YELLOW . "You cannot find the coords of a player's island");
+						$sender->sendMessage(TextFormat::YELLOW . "[Skyblock] Tu no Puedes encontrar la s coordenadas de la isla de un jugador");
 						return true;
 					}
 				}elseif($args[0] == "delete"){
 					if($sender->hasPermission("is") || $sender->hasPermission("is.command") || $sender->hasPermission("is.command.delete")){
 						if(!(isset($args[1]))){
-							$sender->sendMessage("Are you sure? Use /is delete yes to confirm");
+							$sender->sendMessage(TextFormat::ORANGE."[Skyblock] Estas Seguro? Usa /is delete yes para confirmar");
 							return true;
 						}elseif($args[1] == "yes"){
 								if(file_exists($this->getDataFolder()."Islands/".$sender->getName().".txt")){
 									unlink($this->getDataFolder()."Islands/".$sender->getName().".txt");
-									$sender->sendMessage("Your island has been deleted");
+									$sender->sendMessage(TextFormat::BLUE."[Skyblock] Tu Isla a sido eliminada!");
 									return true;
 								}else{
-									$sender->sendMessage("You don't have an island");
+									$sender->sendMessage(TextFormat::YELLOW."[Skyblock] Tu no Tienes una isla!");
 									return true;
 								}
 							}elseif($args[1] == "no"){
-								$sender->sendMessage("Okay, we won't delete your island");
+								$sender->sendMessage(TextFormat::GRAY."[Skyblock] Ok, No eliminaremos tu isla, De todos modos nos vale queso :D");
 								return true;
 							}else{
 								return false;
 							}
 						}else{
-							$sender->sendMessage("You cannot delete your island");
+							$sender->sendMessage(TextFormat::RED."[Skyblock] Tu No puedes eliminar tu Isla");
 							return true;
 						}
 					}elseif($args[0] == "sethome"){
 						if($sender->hasPermission("is") || $sender->hasPermission("is.command") || $sender->hasPermission("is.command.sethome")){
 							if(!(isset($args[1]))){
-								$sender->sendMessage("Are you sure? Make sure you are on your island");
-								$sender->sendMessage("Your island will be lost if you're not on your island. Do /is sethome yes to confirm");
+								$sender->sendMessage(TextFormat::PINK."[Skyblock] Estas seguro? Asegurate que estas en tu isla");
+								$sender->sendMessage(TextFormat::PINK."[Skyblock] Tu Isla se perdera si no estas en tu isla. Pon /is sethome yes para confirmar");
 								return true;
 							}elseif($args[1] == "yes"){
 								if(file_exists($this->getDataFolder()."Islands/".$sender->getName().".txt")){
-									$sender->sendMessage("Setting your home...");
+									$sender->sendMessage("[Skyblock] Setting your home...");
 									$file = $this->getDataFolder()."Islands/".$sender->getName().".txt";
 									unlink($file);
 									$newFile = fopen($file, "w");
 									fwrite($newFile, $sender->x.", ".$sender->y.", ".$sender->z);;
-									$sender->sendMessage("Set your home.");
+									$sender->sendMessage(TextFormat::ORANGE."[Skyblock] Pones Home en el lugar que quieres.");
 									return true;
 								}else{
-									$sender->sendMessage("You don't have an island");
+									$sender->sendMessage(TextFormat::RED."[Skyblock] TU no tienes una isla!");
 									return true;
 								}
 							}elseif($args[1] == "no"){
-								$sender->sendMessage("Okay, we won't set your home");
+								$sender->sendMessage(TextFormat::BLUE."[Skyblock] Ok, no haremos eso....");
 								return true;
 							}else{
-								$sender->sendMessage("Unknown subcommand: ".$args[1]);
-								$sender->sendMessage("/sethome <yes | no>");
+								$sender->sendMessage(TextFormat::GRAY."[Skyblock] Comando Desconosido: ".$args[1]);
+								$sender->sendMessage(TextFormat::GREEN."[Skyblock] /sethome <yes | no>");
 								return true;
 							}
 						}else{
-							$sender->sendMessage("You don't have permission to set your home");
+							$sender->sendMessage(TextFormat::RED."[Skyblock] No tienes permiso para Poner Home.");
 							return true;
 						}
 					}
@@ -205,7 +205,7 @@ class Main extends Base implements Listener{
 	public function makeIsland($name){
 		$player = $this->getServer()->getPlayer($name);
 		if(!($player instanceof Player)){
-			return "Error: Player not found";
+			return TextFormat::RED."[Skyblock] Error: Jugador no Encontrado";
 		}else{
 			
 			$randX = rand(1, 500);
@@ -381,10 +381,10 @@ class Main extends Base implements Listener{
 			
 			// Teleport the player to their new island
 			$player->teleport(new Position($randX, $Y+5, $randZ, $this->getServer()->getLevelByName($levelName)));
-			$player->sendMessage(TextFormat::GREEN . "Welcome to your new island");
-			$player->sendMessage(TextFormat::GREEN . "If your island didn't spawn,");
-			$player->sendMessage(TextFormat::GREEN . "Use /is delete");
-			$player->sendMessage(TextFormat::GREEN . "Then make a new island");
+			$player->sendMessage(TextFormat::GREEN . "[Skyblock] Bienvenido a tu Isla");
+			$player->sendMessage(TextFormat::GREEN . "[Skyblock] Si tu Isla No se Creo,");
+			$player->sendMessage(TextFormat::GREEN . "[Skyblock] Usa /is delete");
+			$player->sendMessage(TextFormat::GREEN . "[Skyblock] Y create otra ;D");
 			
 			// Give the player a starter kit
 			
@@ -440,7 +440,7 @@ class Main extends Base implements Listener{
 			// Chest
 			$player->getInventory()->addItem(Item::get(54));
 			
-			$this->getLogger()->info($name . TextFormat::YELLOW . " made an island");
+			$this->getLogger()->info(TextFormat::BLUE."[Skyblock] "$name . TextFormat::YELLOW . " Hiso una isla");
 		}
 	}
 	
@@ -448,9 +448,9 @@ class Main extends Base implements Listener{
 	public function onPlayerJoinEvent(PlayerJoinEvent $event){
 		$player = $event->getPlayer();
 		if(file_exists($this->getDataFolder()."Players/".$player->getName().".txt")){
-			$player->sendMessage("Welcome back, " . $player->getName());
+			$player->sendMessage("[Skyblock] Welcome back, " . $player->getName());
 		}else{
-			$this->getServer()->broadcastMessage(TextFormat::GREEN . "Welcome ".TextFormat::RESET.$player->getName().TextFormat::GREEN." to the server");
+			$this->getServer()->broadcastMessage(TextFormat::GREEN . "[Skyblock] Bienvenido ".TextFormat::RESET.$player->getName().TextFormat::GREEN." Al Servidor");
 			$file = fopen($this->getDataFolder()."Players/".$player->getName().".txt", "w");
 			fclose($file);
 		}
