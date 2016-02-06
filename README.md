@@ -8,4 +8,4 @@ Also this plugin will be in Spanish For the server IT,
 
 # MOD By TKRT
 
-My Server Website: www.Imperio-Taquro.tk , The Website is also in spanish, Coming soon!
+My Server Website: www.Imperio-Taquero.tk , The Website is also in spanish, Coming soon!
