@@ -4,34 +4,34 @@ api: [1.12.0]
 main: SkyBlock\Main
 commands:
   is:
-    usage: /is <help> <page>
-    description: Tells the sender a list of SkyBlock commands
+    Uso: /is <help> <pagina>
+    description: Lista de comandos de SkyBlock
     permission: is.command.help
 permissions:
   is:
     default: false
-    description: Allows the player to use all of the SkyBlock features
+    description: Permite al Jugador usar las caracteristicas de SkyBlock
     children:
       is.command:
         default: op
-        description: Allows the player to use all of the SkyBlock commands
+        description: Permite al Jugador usar todos los comandos de SkyBlock
         children:
           is.command.help:
             default: true
-            description: Allows the player to use the help command
-          is.command.create:
+            description: Permite l Jugador usar el comando de ayuda
+            is.command.create:
             default: true
-            description: Allows the player to use the create command
+            description: Permite al Jugador usar el comando crear
           is.command.find:
             default: op
-            description: Allows the player to use the home command
+            description: Permite al Jugador usar el comando Home
           is.command.delete:
             default: true
-            description: Allows the player to delete their island
+            description: Permite al Jugador elminiar su isla
           is.command.sethome:
             default: true
-            description: Allows the player to set their island coords
+            description: Permite al Jugador poner el lugar Home
           is.command.home:
             default: true
-            description: Allows the player to teleport to their island
+            description: Permite al jugador a teletransportarse a su isla
         
