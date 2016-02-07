@@ -210,7 +210,7 @@ class Main extends Base implements Listener{
 			
 			$randX = rand(30, 1000);
 			$randZ = rand(30, 1000);
-			$randY = rand(15, 100)
+			$randY = rand(15, 100);
 			
 			$levelName = $this->getServer()->getPlayer($name)->getLevel();
 			
