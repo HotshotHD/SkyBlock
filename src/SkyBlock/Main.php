@@ -125,7 +125,7 @@ class Main extends Base implements Listener{
 									$sender->sendMessage(file_get_contents($this->getDataFolder()."Players/".$name.".txt"));
 									return true;
 								}else{
-									$sender->sendMessage(TextFormat::YELLOW."[Skyblock] "$name . " No Tiene una Isla");
+									$sender->sendMessage(TextFormat::YELLOW."[Skyblock] ".$name . " No Tiene una Isla");
 									return true;
 								}
 							}elseif(file_exists($this->getDataFolder()."Islands/".$args[1].".txt")){
